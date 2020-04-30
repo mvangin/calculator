@@ -1,0 +1,46 @@
+.calculatorContainer {
+    margin: 0 auto;
+    width: 500px;
+    padding-top: 100px;
+}
+
+
+.calculator {
+ 
+    background: grey;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-template-areas:  " display     display    display      display"
+                         "MainContent MainContent MainContent    operator"
+                         "MainContent MainContent MainContent    operator"
+                         "MainContent MainContent MainContent    operator"
+                         "MainContent MainContent MainContent    operator"
+                          "equals       equals      equals        equals" ;
+    height: 350px;
+    width: 500px;
+}
+
+
+
+.display {
+    grid-area: display;
+    border: 1px solid black;
+    background: white;
+    height
+    
+}
+
+.calculatorButtons {
+    grid-area: MainContent;
+    background: red;
+}
+
+.operators {
+    grid-area: operator;
+    background: green;
+}
+
+.equalsDiv {
+    grid-area: equals;
+    background: orange;
+}
