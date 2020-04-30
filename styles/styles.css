@@ -9,15 +9,17 @@
  
     background: grey;
     display: grid;
-    grid-template-columns: repeat(4, auto);
-    grid-template-areas:  " display     display    display      display"
-                         "MainContent MainContent MainContent    operator"
-                         "MainContent MainContent MainContent    operator"
-                         "MainContent MainContent MainContent    operator"
-                         "MainContent MainContent MainContent    operator"
-                          "equals       equals      equals        equals" ;
-    height: 350px;
-    width: 500px;
+    grid-template-columns: .8fr .2fr;
+    grid-template-rows: 1.1fr 1fr 1fr 1fr 1fr 1.1fr;
+    grid-template-areas: "display      display"
+                         "MainContent  operator"
+                         "MainContent  operator"
+                         "MainContent  operator"
+                         "MainContent  operator"
+                         "equals       equals" ;
+    
+    gap: 10px;
+    height: 500px;
 }
 
 
@@ -26,21 +28,60 @@
     grid-area: display;
     border: 1px solid black;
     background: white;
-    height
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .calculatorButtons {
     grid-area: MainContent;
-    background: red;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    text-align: center;
+    gap: 5px;
+
 }
 
-.operators {
-    grid-area: operator;
-    background: green;
-}
 
 .equalsDiv {
     grid-area: equals;
-    background: orange;
 }
+
+.equalButton {
+    height: 100%;
+    width: 100%;
+}
+
+
+.operators {
+    grid-area: operator;
+    display: flex;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    font-size: 25px;
+}
+.operatorButton {
+    font-size: 25px;
+    width: 90px;
+    height: 80px;
+    background: rgb(209, 69, 69);
+}
+
+
+
+
+
+
+
+
+
+
