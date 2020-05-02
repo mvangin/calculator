@@ -1,9 +1,4 @@
-const adder = document.querySelector(".add");
-const display = document.querySelector(".display")
-let runningTotal;
 
-adder.addEventListener("click", () => {
-})
 
 
 function add(a, b) {
@@ -43,30 +38,44 @@ function operate(operator, a, b) {
 
 let operatorOn = 0;
 let operatorSign = "";
+let operatorNum =0;
+let runningTotal;
 
 const numbers = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operatorButton");
+const clear = document.querySelector(".clear");
+const equal = document.querySelector(".equalButton");
+const display = document.querySelector(".display")
+
+
 numbers.forEach((item) => {
     item.addEventListener("click", () => {
-        if (operatorOn==1) {
-            runningTotal = operate(operatorSign, runningTotal,item.getAttribute("data-key"));
-            console.log(runningTotal);
-            display.textContent = item.getAttribute("data-key");
-        } else {
-            display.textContent += item.getAttribute("data-key");
+        if (operatorOn == 1) {
+            display.textContent = "";
         }
+            display.textContent += item.getAttribute("data-key");
+        
         operatorOn = 0;
-        operatorSign = "";
     })
 })
 
-const operators = document.querySelectorAll(".operatorButton");
+
 operators.forEach((item) => {
     item.addEventListener("click", () => {
+       
         if (!runningTotal) {
             runningTotal = display.textContent.trim();
             console.log("initial " + runningTotal)
         }
         
+        operatorNum += 1;
+        if (operatorNum == 2) {
+            runningTotal = operate(operatorSign, runningTotal,display.textContent.trim());
+            console.log(runningTotal);
+            operatorNum = 0;
+            
+        }
+
         display.textContent = item.textContent;
         operatorOn = 1;
         operatorSign = item.textContent.trim();
@@ -74,36 +83,23 @@ operators.forEach((item) => {
     })
 })
 
-const clear = document.querySelector(".clear")
+
 clear.addEventListener("click", () => {
     display.textContent = "";
     runningTotal = 0;
+    operatorNum = 0;
+    operatorSign = "";
+    operatorOn = 0;
 })
 
-const equal = document.querySelector(".equalButton")
+
+
 
 equal.addEventListener("click", () => {
+    
+    runningTotal = operate(operatorSign, runningTotal,display.textContent.trim());
     display.textContent = runningTotal;
+    runningTotal = 0;
 })
-
-/*
-function sum(array) {
-	return array.reduce((sum, item) => sum + item,0);
-
-}
-
- function multiply(array) {
-
-	if (array === []) {
-		return 0;
-	}
-
-	const multiplied = array.reduce((total, item) => {
-		return total * item;
-	},1);
-
-	return multiplied;
-}
-*/
 
 
