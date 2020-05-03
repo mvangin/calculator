@@ -24,7 +24,7 @@ function operate(operator, a, b) {
             total = add(a, b);
             break;
         case "-":
-            total= subtract(a, b);
+            total = subtract(a, b);
             break;
         case "*":
             total = multiply(a, b);
@@ -36,10 +36,7 @@ function operate(operator, a, b) {
     return total;
 }
 
-let operatorOn = 0;
-let operatorSign = "";
-let operatorNum =0;
-let runningTotal;
+
 
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operatorButton");
@@ -47,59 +44,112 @@ const clear = document.querySelector(".clear");
 const equal = document.querySelector(".equalButton");
 const display = document.querySelector(".display")
 
+operators.forEach((item) => {
+    item.addEventListener("click", () => {
+        operatorAction(item);
+    })
+})
 
 numbers.forEach((item) => {
     item.addEventListener("click", () => {
-        if (operatorOn == 1) {
-            display.textContent = "";
-        }
-            display.textContent += item.getAttribute("data-key");
-        
-        operatorOn = 0;
+        numberAction(item);
     })
 })
-
-
-operators.forEach((item) => {
-    item.addEventListener("click", () => {
-       
-        if (!runningTotal) {
-            runningTotal = display.textContent.trim();
-            console.log("initial " + runningTotal)
-        }
-        
-        operatorNum += 1;
-        if (operatorNum == 2) {
-            runningTotal = operate(operatorSign, runningTotal,display.textContent.trim());
-            console.log(runningTotal);
-            operatorNum = 0;
-            
-        }
-
-        display.textContent = item.textContent;
-        operatorOn = 1;
-        operatorSign = item.textContent.trim();
-
-    })
-})
-
 
 clear.addEventListener("click", () => {
+    clearCalculator();
+
+})
+
+equal.addEventListener("click", () => {
+    equalAction();
+
+})
+
+let prevOperatorClick = 0;
+let prevOperatorSign = "";
+let operatorNum = 0;
+let runningTotal;
+let numValue = "";
+
+function equalAction() {
+    runningTotal = operate(prevOperatorSign, runningTotal, +numValue);
+    let runningTotalTemp = runningTotal;
+    clearCalculator();
+    display.textContent = runningTotalTemp;
+
+}
+
+function numberAction(item) {
+    if (prevOperatorClick == true) {
+        display.textContent = "";
+
+        //display snarkyMessage if divide by 0
+        if (prevOperatorSign == "/" && item.getAttribute("data-key") == 0) {
+            snarkyMessage();
+            return;
+        }
+    }
+    // do not allow more than one period
+    if (numValue.includes(".") && item.getAttribute("data-key") == ".") {
+        return;
+    }
+
+    display.textContent += item.getAttribute("data-key");
+    numValue += item.getAttribute("data-key");
+    prevOperatorClick = false;
+
+
+}
+
+
+function operatorAction(item) {
+
+    if (item.getAttribute("data-key") == "+/-") {
+        numValue = String(Number(numValue) * -1);
+        display.textContent = numValue;
+        return 
+    }
+
+    if (!runningTotal) {
+        runningTotal = +numValue;
+        console.log("Debug: initial " + runningTotal)
+    }
+
+
+
+    operatorNum += 1;
+
+    if (operatorNum == 2) {
+
+        runningTotal = operate(prevOperatorSign, runningTotal, +numValue);
+        console.log("Debug: " + runningTotal);
+        operatorNum = 0;
+
+    }
+    
+    display.textContent = item.getAttribute("data-key");
+    prevOperatorClick = true;
+    numValue = "";
+    prevOperatorSign = item.getAttribute("data-key");
+
+}
+
+function clearCalculator() {
     display.textContent = "";
     runningTotal = 0;
     operatorNum = 0;
-    operatorSign = "";
-    operatorOn = 0;
-})
+    prevOperatorSign = "";
+    prevOperatorClick = false;
+    numValue = "";
+}
+
+function snarkyMessage() {
+    display.textContent = "what the f monkeys??";
+    return;
+}
 
 
 
-
-equal.addEventListener("click", () => {
-    
-    runningTotal = operate(operatorSign, runningTotal,display.textContent.trim());
-    display.textContent = runningTotal;
-    runningTotal = 0;
-})
 
 
