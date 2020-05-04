@@ -21,7 +21,7 @@
                          "equals       equals" ;
     
     gap: 10px;
-    height: 500px;
+    height: 452px;
 }
 
 
@@ -50,9 +50,12 @@
 
 .equalsDiv {
     grid-area: equals;
+    border: 1px solid black;
+    
 }
 
 .equalButton {
+    border: none;
     height: 100%;
     width: 100%;
     background: rgb(76, 76, 236);
@@ -78,7 +81,7 @@ button {
 .operatorButton {
     font-size: 25px;
     width: 90px;
-    height: 64px;
+    height: 58px;
     background: rgb(209, 69, 69);
 }
 
