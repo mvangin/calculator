@@ -145,7 +145,7 @@ function clearCalculator() {
 }
 
 function snarkyMessage() {
-    display.textContent = "what the f monkeys??";
+    display.textContent = "Never divide by zero!";
     return;
 }
 
