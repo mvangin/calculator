@@ -1,1 +1,1 @@
-Created a on-screen calculator using vanilla JavaScript, HTML, and CSS. This was the capstone of the Web Dev 101 section of the Odin Project! Site availabe [here](https://mvangin.github.io/calculator/)
+Created a on-screen calculator using vanilla JavaScript, HTML, and CSS. This was the capstone of the Web Dev 101 section of the Odin Project! Site available [here](https://mvangin.github.io/calculator/)
